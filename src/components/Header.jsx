@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import FuturisticLoader from './FuturisticLoader';
 import services from './servicesList';
@@ -292,188 +292,128 @@ export default function Header() {
         </motion.div>
         {/* Desktop Menu */}
         <nav className="hidden md:flex gap-4 sm:gap-8 text-xs sm:text-sm font-medium items-center">
-          {links.map((link, i) => (
-            link === 'Services' ? (
-              <div key={i} className="relative group flex items-center"
-                onMouseEnter={() => setServicesOpen(true)}
-                onMouseLeave={() => setServicesOpen(false)}
-              >
-                <motion.a
-                  href={`#${link.toLowerCase().replace(/ /g, '-')}`}
-                  className="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-1"
-                  whileHover={{ scale: 1.1 }}
+          {links.map((link, i) => {
+            // Map menu link to section id
+            let sectionId = link.toLowerCase().replace(/ /g, '-');
+            if (link === 'Accueil') sectionId = 'hero';
+            if (link === 'À propos') sectionId = 'about';
+            if (link === 'Projets') sectionId = 'projects';
+            if (link === 'Services') {
+              return (
+                <div key={i} className="relative group flex items-center"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
                 >
-                  {link}
-                  <motion.span
-                    className="ml-1 text-lg font-bold text-indigo-300 transition-transform duration-200"
-                    animate={{ rotate: servicesOpen ? 45 : 0 }}
+                  <motion.a
+                    href={`#${link.toLowerCase().replace(/ /g, '-')}`}
+                    className="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-1"
+                    whileHover={{ scale: 1.1 }}
                   >
-                    +
-                  </motion.span>
-                </motion.a>
-                <AnimatePresence>
-                  {servicesOpen && (
-                    <motion.ul
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.22 }}
-                      className="absolute left-0 top-full mt-2 min-w-[220px] bg-[#181c2a] border border-indigo-700 rounded-xl shadow-xl py-2 z-50 flex flex-col items-center"
-                      style={{ minWidth: '220px' }}
+                    {link}
+                    <motion.span
+                      className="ml-1 text-lg font-bold text-indigo-300 transition-transform duration-200"
+                      animate={{ rotate: servicesOpen ? 45 : 0 }}
                     >
-                      {services.map((srv) => {
-                        const localSrv = services.find(s => s.id === srv.id);
-                        return (
-                          <li key={srv.id} className="px-4 py-2 text-sm text-white hover:bg-indigo-700/60 cursor-pointer transition-colors duration-150 w-full text-center"
-                            onClick={() => handleServiceClick(localSrv)}
-                          >
-                            {srv.title}
-                          </li>
-                        );
-                      })}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
+                      +
+                    </motion.span>
+                  </motion.a>
+                  <AnimatePresence>
+                    {servicesOpen && (
+                      <motion.ul
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.22 }}
+                        className="absolute left-0 top-full mt-2 min-w-[220px] bg-[#181c2a] border border-indigo-700 rounded-xl shadow-xl py-2 z-50 flex flex-col items-center"
+                        style={{ minWidth: '220px' }}
+                      >
+                        {services.map((srv) => {
+                          const localSrv = services.find(s => s.id === srv.id);
+                          return (
+                            <li key={srv.id} className="px-4 py-2 text-sm text-white hover:bg-indigo-700/60 cursor-pointer transition-colors duration-150 w-full text-center"
+                              onClick={() => handleServiceClick(localSrv)}
+                            >
+                              {srv.title}
+                            </li>
+                          );
+                        })}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+            return (
               <motion.a
                 key={i}
-                href={`#${link.toLowerCase().replace(/ /g, '-')}`}
+                href={`#${sectionId}`}
                 whileHover={{ scale: 1.1 }}
                 className="hover:text-indigo-400 transition-colors duration-200"
+                onClick={e => {
+                  e.preventDefault();
+                  const section = document.getElementById(sectionId);
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.hash = `#${sectionId}`;
+                  }
+                }}
               >
                 {link}
               </motion.a>
-            )
-          ))}
+            );
+          })}
         </nav>
-        {/* Burger Icon animé */}
-        <motion.button
-          className="md:hidden text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 transition-colors duration-300"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          animate={{ rotate: menuOpen ? 90 : 0, backgroundColor: menuOpen ? 'rgba(49,46,129,0.7)' : 'rgba(0,0,0,0.4)' }}
-          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {menuOpen ? (
-              <motion.span
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center justify-center w-full h-full"
-              >
-                <FaTimes />
-              </motion.span>
-            ) : (
-              <motion.span
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center justify-center w-full h-full"
-              >
-                <FaBars />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-500 transition-colors duration-200"
+            title="Menu"
+          >
+            {menuOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
       {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            key="mobile-menu"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 32, duration: 0.35 }}
-            className="md:hidden bg-black bg-opacity-95 text-white flex flex-col items-center py-4 space-y-2 text-base w-full shadow-2xl backdrop-blur-lg"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-80 backdrop-blur-lg flex flex-col items-center justify-start py-6 gap-4"
           >
-            {links.map((link, i) => (
-              <motion.a
-                key={i}
-                href={`#${link.toLowerCase().replace(/ /g, '-')}`}
-                onClick={() => setMenuOpen(false)}
-                className="font-medium hover:text-indigo-400"
-                whileTap={{ scale: 0.96 }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05 * i }}
-              >
-                {link}
-              </motion.a>
-            ))}
+            {links.map((link, i) => {
+              let sectionId = link.toLowerCase().replace(/ /g, '-');
+              if (link === 'Accueil') sectionId = 'hero';
+              if (link === 'À propos') sectionId = 'about';
+              if (link === 'Projets') sectionId = 'projects';
+              return (
+                <motion.a
+                  key={i}
+                  href={`#${sectionId}`}
+                  whileHover={{ scale: 1.05 }}
+                  className="text-xl font-semibold text-white hover:text-indigo-400 transition-colors duration-200"
+                  onClick={e => {
+                    e.preventDefault();
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                      section.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.hash = `#${sectionId}`;
+                    }
+                    setMenuOpen(false);
+                  }}
+                >
+                  {link}
+                </motion.a>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
     </header>
   );
 }
-
-const Services = () => {
-  const [selectedService, setSelectedService] = React.useState(null);
-  const [proposedPrice, setProposedPrice] = React.useState('');
-  const [submitted, setSubmitted] = React.useState(false);
-
-  React.useEffect(() => {
-    // Vérifie si un service a été sélectionné via le header
-    const stored = localStorage.getItem('selectedService');
-    if (stored) {
-      setSelectedService(JSON.parse(stored));
-      localStorage.removeItem('selectedService');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
-  return (
-    <section
-      id="services"
-      className="w-full py-8 sm:py-12 md:py-20 px-2 sm:px-4 md:px-8 bg-transparent text-white flex flex-col items-center"
-    >
-      <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-10 text-center">
-        Choisissez un service
-      </h2>
-      <ServicesDropdown services={services} onSelect={(service) => { setSelectedService(service); setSubmitted(false); }} />
-      {/* Affiche le formulaire seulement si un service est sélectionné explicitement */}
-      {selectedService && !submitted && (
-        <form onSubmit={handleSubmit} className="mt-8 p-4 bg-white/10 rounded-lg border border-white/10 max-w-lg w-full flex flex-col items-center gap-4">
-          <div className="text-lg font-semibold mb-2 text-white">
-            {selectedService.title}
-          </div>
-          <div className="text-gray-200 mb-4 text-center">
-            {selectedService.description}
-          </div>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            placeholder="Votre proposition de prix (€)"
-            className="px-4 py-2 rounded-md bg-zinc-900/80 border border-white/20 text-white w-full max-w-xs focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            value={proposedPrice}
-            onChange={e => setProposedPrice(e.target.value)}
-            required
-          />
-          <button type="submit" className="mt-2 px-6 py-2 rounded-md bg-cyan-600 hover:bg-cyan-700 text-white font-semibold transition">
-            Valider
-          </button>
-        </form>
-      )}
-      {/* Affiche le message de confirmation seulement si le formulaire a été soumis */}
-      {submitted && selectedService && (
-        <div className="mt-8 p-4 bg-green-700/80 rounded-lg border border-green-400 max-w-lg w-full text-center text-white">
-          Merci pour votre demande concernant <span className="font-semibold">{selectedService.title}</span> !<br />
-          Proposition de prix : <span className="font-semibold">{proposedPrice} €</span>
-        </div>
-      )}
-    </section>
-  );
-};

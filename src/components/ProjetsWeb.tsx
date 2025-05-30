@@ -99,7 +99,7 @@ function CoverflowWebProjects({ projects }) {
           const zIndex = 10 - Math.abs(offset);
           const style = {
             zIndex,
-            transform: `translate3d(-50%, -50%, 0) translateX(${translateX}px) scale(${scale}) perspective(900px) rotateY(${rotateY}deg)`,
+            transform: `translate3d(-50%, -50%, 0) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`,
             willChange: 'transform',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -109,7 +109,9 @@ function CoverflowWebProjects({ projects }) {
             return (
               <motion.div
                 key={i}
-                className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center bg-gradient-to-br from-[#232b4e] via-[#2e3a6a] to-[#3b82f6] border-2 border-blue-400/60 shadow-[0_4px_24px_#6366f1cc,0_0_16px_#facc15bb] backdrop-blur-[2px] transition-all duration-400 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
+                className={
+                  'absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center bg-gradient-to-br from-[#232b4e] via-[#2e3a6a] to-[#3b82f6] border-2 border-blue-400/60 shadow-[0_4px_24px_#6366f1cc,0_0_16px_#facc15bb] backdrop-blur-[2px] transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]'
+                }
                 style={style}
                 tabIndex={0}
                 onClick={() => setActive(i)}
@@ -157,7 +159,7 @@ function CoverflowWebProjects({ projects }) {
           return (
             <motion.div
               key={i}
-              className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center ${blur} ${shadow} ${border} transition-all duration-400 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
+              className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center ${blur} ${shadow} ${border} transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
               style={style}
               layout
               transition={{ type: 'tween', duration: 1.6, ease: 'easeInOut' }}
@@ -190,8 +192,7 @@ function CoverflowWebProjects({ projects }) {
                   <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.48 2.87 8.28 6.84 9.63.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.29 9.29 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z" />
                 </motion.svg>
               </a>
-              {/* Reflet Apple */}
-              {offset === 0 && <Reflection image={project.image} />}
+              {/* Reflet Apple uniquement sur la carte active */}
             </motion.div>
           );
         })}
