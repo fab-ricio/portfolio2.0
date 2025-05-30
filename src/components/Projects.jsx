@@ -8,7 +8,7 @@ const projects = [
     github: 'https://github.com/tonprofil/facture-pdf',
     demo: null,
     badges: ['Open Source', 'CLI', 'PDF'],
-    image: '/images/facture.jpg',
+    image: 'facture.png',
   },
   {
     title: 'Bitcoin Alert',
@@ -17,7 +17,7 @@ const projects = [
     github: 'https://github.com/tonprofil/bitcoin-alert',
     demo: null,
     badges: ['Open Source', 'API', 'UI'],
-    image: '/bitcoin.png',
+    image: 'bitcoin.png',
   },
   {
     title: 'Scraper de données web',
@@ -26,7 +26,7 @@ const projects = [
     github: 'https://github.com/tonprofil/scraper-node',
     demo: null,
     badges: ['Open Source', 'AI-powered', 'CLI'],
-    image: '/images/scraper.jpg',
+    image: 'scraper.png',
   },
 ];
 
@@ -60,8 +60,8 @@ const Projects = () => (
             <img
               src={project.image}
               alt={project.title}
-              className="w-40 h-40 object-cover rounded-2xl shadow-lg mb-4 border-2 border-indigo-400 bg-white/10"
-              style={{ maxWidth: '160px', maxHeight: '160px' }}
+              className="w-full h-48 object-cover rounded-t-3xl shadow-lg mb-4 border-b-4 border-indigo-500 bg-white/10 transition-transform duration-300 group-hover:scale-105"
+              style={{ maxHeight: '220px', minHeight: '180px' }}
             />
           )}
           <div className="flex items-center gap-2 mb-4 flex-wrap justify-center">
