@@ -3,20 +3,18 @@ import React from "react";
 const ServicesDropdown = ({ services, onSelect }) => {
 	return (
 		<div className="relative group inline-block text-left">
-			<button className="px-4 py-2 rounded-md bg-white/10 text-white font-semibold hover:bg-white/20 transition duration-200">
-				Services
-				<svg
-					className="inline ml-2 w-4 h-4"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					viewBox="0 0 24 24"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M19 9l-7 7-7-7"
-					/>
+			<button
+				className="futuristic-pyramid-btn w-14 h-14 bg-gradient-to-br from-cyan-900 via-indigo-900 to-cyan-800 shadow-[0_4px_32px_0_rgba(0,255,255,0.18)] border-2 border-cyan-400/40 flex items-center justify-center relative overflow-hidden group pyramid-shape
+				transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-cyan-400/40 focus:ring-2 focus:ring-cyan-400 animate-pulse"
+				title="Afficher les services"
+			>
+				<span className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl animate-pulse pointer-events-none" />
+				<svg className="w-8 h-8 text-cyan-300 group-hover:text-cyan-400 transition-colors duration-200 drop-shadow-glow relative z-10"
+					viewBox="0 0 32 32" fill="none">
+					<polygon points="16,4 28,28 4,28" fill="#0ff" fillOpacity="0.18" className="group-hover:animate-bounce" />
+					<polygon points="16,8 24,26 8,26" fill="#0ff" fillOpacity="0.32" className="group-hover:animate-pulse" />
+					<polygon points="16,12 20,24 12,24" fill="#0ff" fillOpacity="0.7" className="group-hover:animate-pulse" />
+					<path d="M12 20 L16 24 L20 20" stroke="#0ff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-bounce" />
 				</svg>
 			</button>
 			<div className="absolute left-0 mt-2 w-64 bg-zinc-900/95 border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
