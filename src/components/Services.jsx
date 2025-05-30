@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import ServicesDropdown from './ServicesDropdown';
 import services from './servicesList';
 
@@ -9,13 +8,52 @@ const Services = () => {
 	const [submitted, setSubmitted] = React.useState(false);
 
 	React.useEffect(() => {
-		// Vérifie si un service a été sélectionné via le header
-		const stored = localStorage.getItem('selectedService');
-		if (stored) {
-			setSelectedService(JSON.parse(stored));
-			localStorage.removeItem('selectedService');
-			window.scrollTo({ top: 0, behavior: 'smooth' });
+		// Synchronisation par id pour garantir la référence locale
+		function syncFromStorage() {
+			const stored = localStorage.getItem('selectedService');
+			if (stored) {
+				try {
+					const storedService = JSON.parse(stored);
+					if (storedService && storedService.id) {
+						const found = services.find(s => s.id === storedService.id);
+						if (found) {
+							setSelectedService(found);
+							setProposedPrice('');
+							setSubmitted(false);
+						}
+					}
+				} catch {
+					// fallback: rien
+				}
+				localStorage.removeItem('selectedService');
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			}
 		}
+
+		syncFromStorage();
+
+		// Ajout : écouteur hashchange et focus pour synchroniser même après navigation ou retour
+		function onHashOrFocus() {
+			syncFromStorage();
+		}
+		window.addEventListener('hashchange', onHashOrFocus);
+		window.addEventListener('focus', onHashOrFocus);
+
+		// Ajout : permet au header de déclencher la sélection immédiate
+		window.setSelectedServiceFromHeader = (service) => {
+			const found = services.find(s => s.id === service.id);
+			if (found) {
+				setSelectedService(found);
+				setProposedPrice('');
+				setSubmitted(false);
+			}
+		};
+
+		return () => {
+			window.removeEventListener('hashchange', onHashOrFocus);
+			window.removeEventListener('focus', onHashOrFocus);
+			delete window.setSelectedServiceFromHeader;
+		};
 	}, []);
 
 	const handleSubmit = (e) => {
@@ -34,6 +72,12 @@ const Services = () => {
 			<ServicesDropdown
 				services={services}
 				onSelect={(service) => {
+					// Synchronise le comportement avec le header : stocke dans localStorage et navigue
+					localStorage.setItem('selectedService', JSON.stringify(service));
+					window.location.hash = '#services';
+					const section = document.getElementById('services');
+					if (section) section.scrollIntoView({ behavior: 'smooth' });
+					// Correction : on sélectionne aussi localement pour affichage immédiat
 					setSelectedService(service);
 					setProposedPrice('');
 					setSubmitted(false);

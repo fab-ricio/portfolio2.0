@@ -21,20 +21,23 @@ const ServicesDropdown = ({ services, onSelect }) => {
 			</button>
 			<div className="absolute left-0 mt-2 w-64 bg-zinc-900/95 border border-white/10 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
 				<ul className="py-2">
-					{services.map((service, idx) => (
-						<li
-							key={idx}
-							className="px-4 py-3 hover:bg-white/10 cursor-pointer transition rounded-md"
-							onClick={() => onSelect && onSelect(service)}
-						>
-							<div className="font-semibold text-sm mb-1 text-white">
-								{service.title}
-							</div>
-							<div className="text-xs text-gray-300 leading-tight">
-								{service.description}
-							</div>
-						</li>
-					))}
+					{services.map((service) => {
+						const localService = services.find((s) => s.id === service.id);
+						return (
+							<li
+								key={service.id}
+								className="px-4 py-3 hover:bg-white/10 cursor-pointer transition rounded-md"
+								onClick={() => onSelect && onSelect(localService)}
+							>
+								<div className="font-semibold text-sm mb-1 text-white">
+									{service.title}
+								</div>
+								<div className="text-xs text-gray-300 leading-tight">
+									{service.description}
+								</div>
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 		</div>

@@ -90,15 +90,17 @@ export default function Header() {
 
   // Ajout : gestion du clic sur un service du menu header
   const handleServiceClick = (service) => {
-    // Stocke le service sélectionné dans le localStorage
+    // Correction : notifie la section Services pour affichage immédiat
     localStorage.setItem('selectedService', JSON.stringify(service));
     setServicesOpen(false);
     setMenuOpen(false);
     setTimeout(() => {
       window.location.hash = '#services';
-      // Pour forcer le scroll même si déjà sur #services
       const section = document.getElementById('services');
       if (section) section.scrollIntoView({ behavior: 'smooth' });
+      if (typeof window.setSelectedServiceFromHeader === 'function') {
+        window.setSelectedServiceFromHeader(service);
+      }
     }, 50);
   };
 
@@ -319,13 +321,16 @@ export default function Header() {
                       className="absolute left-0 top-full mt-2 min-w-[220px] bg-[#181c2a] border border-indigo-700 rounded-xl shadow-xl py-2 z-50 flex flex-col items-center"
                       style={{ minWidth: '220px' }}
                     >
-                      {services.map((srv, idx) => (
-                        <li key={idx} className="px-4 py-2 text-sm text-white hover:bg-indigo-700/60 cursor-pointer transition-colors duration-150 w-full text-center"
-                          onClick={() => handleServiceClick(srv)}
-                        >
-                          {srv.title}
-                        </li>
-                      ))}
+                      {services.map((srv) => {
+                        const localSrv = services.find(s => s.id === srv.id);
+                        return (
+                          <li key={srv.id} className="px-4 py-2 text-sm text-white hover:bg-indigo-700/60 cursor-pointer transition-colors duration-150 w-full text-center"
+                            onClick={() => handleServiceClick(localSrv)}
+                          >
+                            {srv.title}
+                          </li>
+                        );
+                      })}
                     </motion.ul>
                   )}
                 </AnimatePresence>
