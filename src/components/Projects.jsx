@@ -11,13 +11,13 @@ const projects = [
     image: '/images/facture.jpg',
   },
   {
-    title: 'Bot Telegram auto-poster',
-    description: 'Publie automatiquement du contenu sur Telegram via une API.',
-    stack: ['Node.js', 'Telegraf', 'Cron'],
-    github: 'https://github.com/tonprofil/bot-telegram',
+    title: 'Bitcoin Alert',
+    description: "Surveille le prix du Bitcoin et envoie une alerte email si la variation dépasse un seuil. Interface moderne avec graphique, historique et logs.",
+    stack: ['Python', 'customtkinter', 'CoinGecko API', 'smtplib'],
+    github: 'https://github.com/tonprofil/bitcoin-alert',
     demo: null,
-    badges: ['Open Source', 'Cron-ready', 'API'],
-    image: '/images/bot.jpg',
+    badges: ['Open Source', 'API', 'UI'],
+    image: '/bitcoin.png',
   },
   {
     title: 'Scraper de données web',
@@ -60,8 +60,8 @@ const Projects = () => (
             <img
               src={project.image}
               alt={project.title}
-              className="w-20 h-20 object-cover rounded-xl shadow-lg mb-4 border-2 border-indigo-400 bg-white/10"
-              style={{ maxWidth: '80px', maxHeight: '80px' }}
+              className="w-40 h-40 object-cover rounded-2xl shadow-lg mb-4 border-2 border-indigo-400 bg-white/10"
+              style={{ maxWidth: '160px', maxHeight: '160px' }}
             />
           )}
           <div className="flex items-center gap-2 mb-4 flex-wrap justify-center">
