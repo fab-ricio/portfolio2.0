@@ -8,6 +8,16 @@ const Services = () => {
 	const [proposedPrice, setProposedPrice] = React.useState('');
 	const [submitted, setSubmitted] = React.useState(false);
 
+	React.useEffect(() => {
+		// Vérifie si un service a été sélectionné via le header
+		const stored = localStorage.getItem('selectedService');
+		if (stored) {
+			setSelectedService(JSON.parse(stored));
+			localStorage.removeItem('selectedService');
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	}, []);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setSubmitted(true);
@@ -21,8 +31,16 @@ const Services = () => {
 			<h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-10 text-center">
 				Choisissez un service
 			</h2>
-			<ServicesDropdown services={services} onSelect={(service) => { setSelectedService(service); setSubmitted(false); }} />
-			{selectedService && !submitted && (
+			<ServicesDropdown
+				services={services}
+				onSelect={(service) => {
+					setSelectedService(service);
+					setProposedPrice('');
+					setSubmitted(false);
+				}}
+			/>
+			{/* Affiche le formulaire uniquement si un service est sélectionné et que submitted est false */}
+			{selectedService && !submitted ? (
 				<form onSubmit={handleSubmit} className="mt-8 p-4 bg-white/10 rounded-lg border border-white/10 max-w-lg w-full flex flex-col items-center gap-4">
 					<div className="text-lg font-semibold mb-2 text-white">
 						{selectedService.title}
@@ -44,13 +62,14 @@ const Services = () => {
 						Valider
 					</button>
 				</form>
-			)}
-			{submitted && (
+			) : null}
+			{/* Affiche le message de confirmation uniquement après soumission, sinon rien */}
+			{submitted && selectedService ? (
 				<div className="mt-8 p-4 bg-green-700/80 rounded-lg border border-green-400 max-w-lg w-full text-center text-white">
 					Merci pour votre demande concernant <span className="font-semibold">{selectedService.title}</span> !<br />
 					Proposition de prix : <span className="font-semibold">{proposedPrice} €</span>
 				</div>
-			)}
+			) : null}
 		</section>
 	);
 };
