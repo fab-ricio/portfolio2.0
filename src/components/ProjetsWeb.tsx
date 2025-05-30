@@ -92,19 +92,25 @@ function CoverflowWebProjects({ projects }) {
         {projects.map((project, i) => {
           const offset = i - active;
           if (Math.abs(offset) > maxVisible) return null;
+          // OPTI: Utilise translate3d et will-change pour accélérer le rendu GPU
           const translateX = offset * 120;
           const rotateY = offset * -35;
           const scale = offset === 0 ? 1.07 : 0.92;
           const zIndex = 10 - Math.abs(offset);
+          const style = {
+            zIndex,
+            transform: `translate3d(-50%, -50%, 0) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`,
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            WebkitTransformStyle: 'preserve-3d',
+          };
           if (offset === 0) {
             return (
               <motion.div
                 key={i}
                 className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center bg-gradient-to-br from-[#232b4e] via-[#2e3a6a] to-[#3b82f6] border-2 border-blue-400/60 shadow-[0_4px_24px_#6366f1cc,0_0_16px_#facc15bb] backdrop-blur-[2px] transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
-                style={{
-                  zIndex,
-                  transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`
-                }}
+                style={style}
                 tabIndex={0}
                 onClick={() => setActive(i)}
                 layout
@@ -152,10 +158,7 @@ function CoverflowWebProjects({ projects }) {
             <motion.div
               key={i}
               className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center ${blur} ${shadow} ${border} transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
-              style={{
-                zIndex,
-                transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`
-              }}
+              style={style}
               layout
               transition={{ type: 'spring', stiffness: 80, damping: 22, duration: 0.7 }}
               tabIndex={0}
