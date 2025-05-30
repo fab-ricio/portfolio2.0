@@ -443,6 +443,7 @@ const Services = () => {
         Choisissez un service
       </h2>
       <ServicesDropdown services={services} onSelect={(service) => { setSelectedService(service); setSubmitted(false); }} />
+      {/* Affiche le formulaire seulement si un service est sélectionné explicitement */}
       {selectedService && !submitted && (
         <form onSubmit={handleSubmit} className="mt-8 p-4 bg-white/10 rounded-lg border border-white/10 max-w-lg w-full flex flex-col items-center gap-4">
           <div className="text-lg font-semibold mb-2 text-white">
@@ -466,7 +467,8 @@ const Services = () => {
           </button>
         </form>
       )}
-      {submitted && (
+      {/* Affiche le message de confirmation seulement si le formulaire a été soumis */}
+      {submitted && selectedService && (
         <div className="mt-8 p-4 bg-green-700/80 rounded-lg border border-green-400 max-w-lg w-full text-center text-white">
           Merci pour votre demande concernant <span className="font-semibold">{selectedService.title}</span> !<br />
           Proposition de prix : <span className="font-semibold">{proposedPrice} €</span>
