@@ -92,23 +92,29 @@ function CoverflowWebProjects({ projects }) {
         {projects.map((project, i) => {
           const offset = i - active;
           if (Math.abs(offset) > maxVisible) return null;
+          // OPTI: Utilise translate3d et will-change pour accélérer le rendu GPU
           const translateX = offset * 120;
           const rotateY = offset * -35;
           const scale = offset === 0 ? 1.07 : 0.92;
           const zIndex = 10 - Math.abs(offset);
+          const style = {
+            zIndex,
+            transform: `translate3d(-50%, -50%, 0) translateX(${translateX}px) scale(${scale}) perspective(900px) rotateY(${rotateY}deg)`,
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            WebkitTransformStyle: 'preserve-3d',
+          };
           if (offset === 0) {
             return (
               <motion.div
                 key={i}
-                className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center bg-gradient-to-br from-[#232b4e] via-[#2e3a6a] to-[#3b82f6] border-2 border-blue-400/60 shadow-[0_4px_24px_#6366f1cc,0_0_16px_#facc15bb] backdrop-blur-[2px] transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
-                style={{
-                  zIndex,
-                  transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`
-                }}
+                className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center bg-gradient-to-br from-[#232b4e] via-[#2e3a6a] to-[#3b82f6] border-2 border-blue-400/60 shadow-[0_4px_24px_#6366f1cc,0_0_16px_#facc15bb] backdrop-blur-[2px] transition-all duration-400 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
+                style={style}
                 tabIndex={0}
                 onClick={() => setActive(i)}
                 layout
-                transition={{ type: 'spring', stiffness: 80, damping: 22, duration: 0.7 }}
+                transition={{ type: 'tween', duration: 1.6, ease: 'easeInOut' }}
               >
                 <img src={project.image} alt={project.title} className="w-full h-44 md:h-56 object-cover rounded-t-3xl md:rounded-t-[2.5rem] shadow-lg mb-4 border-b-4 border-indigo-400 bg-white/10 transition-all duration-500 relative z-10" />
                 <h3 className="text-lg md:text-2xl font-bold mb-2 text-blue-100 text-center uppercase drop-shadow futuristic-font transition-all duration-500 relative z-10 bg-gradient-to-r from-[#60a5fa] via-[#facc15] to-[#818cf8] bg-clip-text text-transparent">
@@ -151,13 +157,10 @@ function CoverflowWebProjects({ projects }) {
           return (
             <motion.div
               key={i}
-              className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center ${blur} ${shadow} ${border} transition-all duration-700 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
-              style={{
-                zIndex,
-                transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale}) perspective(1200px) rotateY(${rotateY}deg)`
-              }}
+              className={`absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 flex flex-col items-center justify-center ${blur} ${shadow} ${border} transition-all duration-400 ease-[cubic-bezier(.77,0,.18,1)] rounded-3xl md:rounded-[2.5rem]`}
+              style={style}
               layout
-              transition={{ type: 'spring', stiffness: 80, damping: 22, duration: 0.7 }}
+              transition={{ type: 'tween', duration: 1.6, ease: 'easeInOut' }}
               tabIndex={0}
               onClick={() => setActive(i)}
             >
