@@ -34,7 +34,7 @@ const About = () => {
             </svg>
           </span>
           <img
-            src="/images/profil.jpg"
+            src={import.meta.env.BASE_URL + 'profile.jpg'}
             alt="Photo de profil"
             className="relative z-20 mx-auto aspect-square rounded-full w-20 sm:w-28 md:w-36 lg:w-40 object-cover max-w-full shadow-xl"
             style={{ aspectRatio: '1/1' }}

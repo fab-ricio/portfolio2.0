@@ -7,19 +7,19 @@ const webApps = [
     title: 'Weather App',
     description: "Application météo moderne avec API et design responsive.",
     github: 'https://github.com/tonprofil/weather-app',
-    image: '/images/weather.jpg',
+    image: `${import.meta.env.BASE_URL}Weather-app.png`, // image dans public/
   },
   {
     title: 'ToDo List',
     description: "Gestionnaire de tâches intuitif, rapide et synchronisé.",
     github: 'https://github.com/tonprofil/todo-list',
-    image: '/images/todo.jpg',
+    image: `${import.meta.env.BASE_URL}to-do.png`, // image dans public/
   },
   {
-    title: 'Dashboard Perso',
-    description: "Dashboard web personnalisable pour visualiser vos données.",
-    github: 'https://github.com/tonprofil/dashboard',
-    image: '/images/dashboard.jpg',
+    title: 'Gen sous-titres',
+    description: "Transcrit l'audio en sous-titres SRT mot à mot.",
+    github: 'https://github.com/tonprofil/generateur-sous-titres',
+    image: `${import.meta.env.BASE_URL}gen-sous-titres.png`, // image dans public/
   },
 ];
 
@@ -110,7 +110,7 @@ function CoverflowWebProjects({ projects }) {
                 layout
                 transition={{ type: 'spring', stiffness: 80, damping: 22, duration: 0.7 }}
               >
-                <img src={project.image} alt={project.title} className="w-full h-40 md:h-56 object-cover rounded-t-3xl md:rounded-t-[2.5rem] shadow-lg mb-4 border-b-4 border-indigo-400 bg-white/10 transition-all duration-500 relative z-10" />
+                <img src={project.image} alt={project.title} className="w-full h-44 md:h-56 object-cover rounded-t-3xl md:rounded-t-[2.5rem] shadow-lg mb-4 border-b-4 border-indigo-400 bg-white/10 transition-all duration-500 relative z-10" />
                 <h3 className="text-lg md:text-2xl font-bold mb-2 text-blue-100 text-center uppercase drop-shadow futuristic-font transition-all duration-500 relative z-10 bg-gradient-to-r from-[#60a5fa] via-[#facc15] to-[#818cf8] bg-clip-text text-transparent">
                   {project.title}
                 </h3>
@@ -161,7 +161,7 @@ function CoverflowWebProjects({ projects }) {
               tabIndex={0}
               onClick={() => setActive(i)}
             >
-              <img src={project.image} alt={project.title} className="w-full h-40 md:h-56 object-cover rounded-t-3xl md:rounded-t-[2.5rem] shadow-lg mb-4 border-b-4 border-indigo-400 bg-white/10 transition-all duration-500" />
+              <img src={project.image} alt={project.title} className="w-full h-44 md:h-56 object-cover rounded-t-3xl md:rounded-t-[2.5rem] shadow-lg mb-4 border-b-4 border-indigo-400 bg-white/10 transition-all duration-500" />
               <h3 className="text-lg md:text-2xl font-bold mb-2 text-blue-200 text-center uppercase drop-shadow futuristic-font transition-all duration-500">{project.title}</h3>
               <p className="text-gray-200 mb-3 text-sm md:text-base opacity-90 text-center px-2 transition-all duration-500">{project.description}</p>
               <a
