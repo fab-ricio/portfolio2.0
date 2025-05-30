@@ -1,24 +1,6 @@
 import React from "react";
 
-const services = [
-	{
-		title: "Bots Telegram",
-		description:
-			"Création de bots automatisés pour publier, répondre ou gérer des canaux.",
-	},
-	{
-		title: "Scripts API sur mesure",
-		description:
-			"Connexion à des API externes pour automatiser des flux de travail.",
-	},
-	{
-		title: "Scraping intelligent",
-		description:
-			"Extraction de données web pour alimenter des bases ou dashboards.",
-	},
-];
-
-const ServicesDropdown = ({ onSelect }) => {
+const ServicesDropdown = ({ services, onSelect }) => {
 	return (
 		<div className="relative group inline-block text-left">
 			<button className="px-4 py-2 rounded-md bg-white/10 text-white font-semibold hover:bg-white/20 transition duration-200">

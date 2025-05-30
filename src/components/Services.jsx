@@ -1,21 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ServicesDropdown from './ServicesDropdown';
-
-const services = [
-	{
-		title: 'Bots Telegram',
-		description: 'Création de bots automatisés pour publier, répondre ou gérer des canaux.',
-	},
-	{
-		title: 'Scripts API sur mesure',
-		description: 'Connexion à des API externes pour automatiser des flux de travail.',
-	},
-	{
-		title: 'Scraping intelligent',
-		description: 'Extraction de données web pour alimenter des bases ou dashboards.',
-	},
-];
+import services from './servicesList';
 
 const Services = () => {
 	const [selectedService, setSelectedService] = React.useState(null);
@@ -35,7 +21,7 @@ const Services = () => {
 			<h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-10 text-center">
 				Choisissez un service
 			</h2>
-			<ServicesDropdown onSelect={(service) => { setSelectedService(service); setSubmitted(false); }} />
+			<ServicesDropdown services={services} onSelect={(service) => { setSelectedService(service); setSubmitted(false); }} />
 			{selectedService && !submitted && (
 				<form onSubmit={handleSubmit} className="mt-8 p-4 bg-white/10 rounded-lg border border-white/10 max-w-lg w-full flex flex-col items-center gap-4">
 					<div className="text-lg font-semibold mb-2 text-white">

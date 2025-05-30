@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import FuturisticLoader from './FuturisticLoader';
+import services from './servicesList';
 
 const links = ['Accueil', 'À propos', 'Projets', 'Services', 'Contact'];
-const servicesList = [
-  'Automatisation de tâches',
-  'Développement de bots',
-  'Scraping web',
-  'Scripts Python/Node.js',
-  'Intégration API',
-];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -311,9 +305,9 @@ export default function Header() {
                       className="absolute left-0 top-full mt-2 min-w-[220px] bg-[#181c2a] border border-indigo-700 rounded-xl shadow-xl py-2 z-50 flex flex-col items-center"
                       style={{ minWidth: '220px' }}
                     >
-                      {servicesList.map((srv, idx) => (
+                      {services.map((srv, idx) => (
                         <li key={idx} className="px-4 py-2 text-sm text-white hover:bg-indigo-700/60 cursor-pointer transition-colors duration-150 w-full text-center">
-                          {srv}
+                          {srv.title}
                         </li>
                       ))}
                     </motion.ul>
