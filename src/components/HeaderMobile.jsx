@@ -23,11 +23,19 @@ export default function HeaderMobile() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(open => !open)}
-          className="p-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-black w-10 h-10 flex items-center justify-center"
+          className="p-2 rounded-lg text-indigo-500 hover:text-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-10 h-10 flex items-center justify-center bg-transparent border-none shadow-none"
           title="Menu"
           aria-label="Ouvrir le menu"
+          style={{ boxShadow: 'none', background: 'none' }}
         >
-          {menuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+          <motion.span
+            initial={false}
+            animate={{ rotate: menuOpen ? 90 : 0, scale: menuOpen ? 1.15 : 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            className="flex items-center justify-center w-full h-full"
+          >
+            {menuOpen ? <FaTimes className="w-7 h-7" /> : <FaBars className="w-7 h-7" />}
+          </motion.span>
         </button>
       </div>
       {/* Mobile Menu */}
