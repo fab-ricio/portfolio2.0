@@ -8,7 +8,7 @@ import StickyDarkModeHelper from './components/StickyDarkModeHelper';
 function App() {
   return (
     <>
-    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen overflow-x-hidden">
       <Header />
       <Main />
       <Footer />

@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="w-full relative flex flex-col justify-center items-center text-center min-h-[60vh] sm:min-h-[80vh] md:min-h-screen px-0 py-0 bg-none dark:bg-none text-white"
+      className="w-full relative flex flex-col justify-center items-center text-center min-h-[60vh] sm:min-h-[80vh] md:min-h-screen px-0 py-0 bg-none dark:bg-none text-white mt-20"
     >
       {/* Texte principal animé */}
       <motion.h1
