@@ -6,6 +6,8 @@ const Services = () => {
 	const [selectedService, setSelectedService] = React.useState(null);
 	const [proposedPrice, setProposedPrice] = React.useState('');
 	const [submitted, setSubmitted] = React.useState(false);
+	const [dropdownOpen, setDropdownOpen] = React.useState(false);
+	const dropdownRef = React.useRef();
 
 	React.useEffect(() => {
 		// Synchronisation par id pour garantir la référence locale
@@ -26,7 +28,7 @@ const Services = () => {
 					// fallback: rien
 				}
 				localStorage.removeItem('selectedService');
-				window.scrollTo({ top: 0, behavior: 'smooth' });
+				// window.scrollTo({ top: 0, behavior: 'smooth' }); // supprimé pour éviter le retour en haut
 			}
 		}
 
@@ -56,6 +58,33 @@ const Services = () => {
 		};
 	}, []);
 
+	// Gestion du clic en dehors pour fermer le dropdown
+	React.useEffect(() => {
+		if (!dropdownOpen) return;
+		function handleClickOutside(e) {
+			if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+				setDropdownOpen(false);
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, [dropdownOpen]);
+
+	const handleDropdownToggle = () => {
+		setDropdownOpen((open) => !open);
+	};
+
+	const handleServiceSelect = (service) => {
+		localStorage.setItem('selectedService', JSON.stringify(service));
+		window.location.hash = '#services';
+		const section = document.getElementById('services');
+		if (section) section.scrollIntoView({ behavior: 'smooth' });
+		setSelectedService(service);
+		setProposedPrice('');
+		setSubmitted(false);
+		setDropdownOpen(false);
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setSubmitted(true);
@@ -69,20 +98,14 @@ const Services = () => {
 			<h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-10 text-center">
 				Choisissez un service
 			</h2>
-			<ServicesDropdown
-				services={services}
-				onSelect={(service) => {
-					// Synchronise le comportement avec le header : stocke dans localStorage et navigue
-					localStorage.setItem('selectedService', JSON.stringify(service));
-					window.location.hash = '#services';
-					const section = document.getElementById('services');
-					if (section) section.scrollIntoView({ behavior: 'smooth' });
-					// Correction : on sélectionne aussi localement pour affichage immédiat
-					setSelectedService(service);
-					setProposedPrice('');
-					setSubmitted(false);
-				}}
-			/>
+			<div ref={dropdownRef}>
+				<ServicesDropdown
+					services={services}
+					onSelect={handleServiceSelect}
+					dropdownOpen={dropdownOpen}
+					onToggle={handleDropdownToggle}
+				/>
+			</div>
 			{/* Affiche le formulaire uniquement si un service est sélectionné et que submitted est false */}
 			{selectedService && !submitted ? (
 				<form onSubmit={handleSubmit} className="mt-8 p-4 bg-white/10 rounded-lg border border-white/10 max-w-lg w-full flex flex-col items-center gap-4">
