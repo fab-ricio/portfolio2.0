@@ -30,8 +30,7 @@ function App() {
         <div className="hidden md:block">
           <HeaderDesktop />
         </div>
-        <Main />
-        <Footer />
+        <Main />        <Footer />
         <DarkModeToggle />
         <StickyDarkModeHelper />
       </div>
