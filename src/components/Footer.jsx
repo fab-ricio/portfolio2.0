@@ -31,7 +31,7 @@ const Footer = () => {
       <div className="space-x-3 flex flex-row justify-center sm:justify-end z-20">
         {/* GitHub */}
         <a
-          href="https://github.com/tonprofil"
+          href="https://github.com/fab-ricio"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#232b4e] via-[#3b82f6] to-[#818cf8] shadow-md border border-blue-400/40 hover:from-[#818cf8] hover:to-[#60a5fa] hover:text-[#facc15] transition-all duration-300 group ring-1 ring-[#818cf8]/30"
@@ -43,7 +43,7 @@ const Footer = () => {
         </a>
         {/* LinkedIn */}
         <a
-          href="https://linkedin.com/in/tonprofil"
+          href="https://www.linkedin.com/in/fabricio-elys%C3%A9-botralahy-a290a8284/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#818cf8] via-[#facc15] to-[#60a5fa] shadow-md border border-blue-300/40 hover:from-[#facc15] hover:to-[#818cf8] hover:text-[#232b4e] transition-all duration-300 group ring-1 ring-[#facc15]/20"
@@ -55,7 +55,7 @@ const Footer = () => {
         </a>
         {/* Facebook */}
         <a
-          href="https://facebook.com/tonprofil"
+          href="https://web.facebook.com/fabricio.botralahy/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#1877f2] via-[#3b4cca] to-[#60a5fa] shadow-md border border-blue-300/40 hover:from-[#60a5fa] hover:to-[#1877f2] hover:text-[#facc15] transition-all duration-300 group ring-1 ring-[#1877f2]/20"
@@ -65,7 +65,7 @@ const Footer = () => {
         </a>
         {/* WhatsApp */}
         <a
-          href="https://wa.me/33612345678"
+          href="https://wa.me/+212680075477"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#25d366] via-[#3b4cca] to-[#60a5fa] shadow-md border border-green-300/40 hover:from-[#60a5fa] hover:to-[#25d366] hover:text-[#facc15] transition-all duration-300 group ring-1 ring-[#25d366]/20"
