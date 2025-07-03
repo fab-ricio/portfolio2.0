@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import services from './servicesList';
-import LanguageSwitcher from './LanguageSwitcher';
 import { t } from '../i18n';
 
 const links = [
@@ -226,7 +225,16 @@ export default function HeaderDesktop({ language, setLanguage }) {
             );
           })}
         </nav>
-        <LanguageSwitcher language={language} setLanguage={setLanguage} />
+        {/* Switch minimaliste langue */}
+        <button
+          onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+          className="relative w-14 h-8 bg-gray-800 rounded-full flex items-center px-1 transition focus:outline-none focus:ring-2 focus:ring-blue-400 ml-4"
+          aria-label="Switch language"
+        >
+          <span className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-blue-500 shadow transform transition-transform ${language === 'fr' ? '' : 'translate-x-6'}`}></span>
+          <span className={`z-10 text-xs font-bold ml-2 ${language === 'fr' ? 'text-white' : 'text-gray-400'}`}>FR</span>
+          <span className={`z-10 text-xs font-bold ml-auto mr-2 ${language === 'en' ? 'text-white' : 'text-gray-400'}`}>EN</span>
+        </button>
       </div>
     </header>
   );
