@@ -82,6 +82,21 @@ export const translations = {
     Projets: "Projets",
     Services: "Services",
     Contact: "Contact",
+    // Services (Services.jsx)
+    "Automatisation de tâches": "Automatisation de tâches",
+    "Automatisez vos tâches répétitives pour gagner du temps et réduire les erreurs.": "Automatisez vos tâches répétitives pour gagner du temps et réduire les erreurs.",
+    "Développement de bots": "Développement de bots",
+    "Création de bots personnalisés pour Telegram, Discord, Slack, etc.": "Création de bots personnalisés pour Telegram, Discord, Slack, etc.",
+    "Scraping web": "Scraping web",
+    "Extraction intelligente de données depuis des sites web pour alimenter vos outils.": "Extraction intelligente de données depuis des sites web pour alimenter vos outils.",
+    "Scripts Python/Node.js": "Scripts Python/Node.js",
+    "Développement de scripts sur mesure pour automatiser vos processus métiers.": "Développement de scripts sur mesure pour automatiser vos processus métiers.",
+    "Intégration API": "Intégration API",
+    "Connexion et synchronisation de vos outils avec des API tierces.": "Connexion et synchronisation de vos outils avec des API tierces.",
+    "Votre proposition de prix (€)": "Votre proposition de prix (€)",
+    "Valider": "Valider",
+    "Merci pour votre demande concernant": "Merci pour votre demande concernant",
+    "Proposition de prix": "Proposition de prix",
     // ...ajoute d'autres clés ici...
   },
   en: {
@@ -166,6 +181,21 @@ export const translations = {
     Projets: "Projects",
     Services: "Services",
     Contact: "Contact",
+    // Services (Services.jsx)
+    "Automatisation de tâches": "Task automation",
+    "Automatisez vos tâches répétitives pour gagner du temps et réduire les erreurs.": "Automate your repetitive tasks to save time and reduce errors.",
+    "Développement de bots": "Bot development",
+    "Création de bots personnalisés pour Telegram, Discord, Slack, etc.": "Custom bot creation for Telegram, Discord, Slack, etc.",
+    "Scraping web": "Web scraping",
+    "Extraction intelligente de données depuis des sites web pour alimenter vos outils.": "Smart data extraction from websites to feed your tools.",
+    "Scripts Python/Node.js": "Python/Node.js scripts",
+    "Développement de scripts sur mesure pour automatiser vos processus métiers.": "Custom script development to automate your business processes.",
+    "Intégration API": "API integration",
+    "Connexion et synchronisation de vos outils avec des API tierces.": "Connect and sync your tools with third-party APIs.",
+    "Votre proposition de prix (€)": "Your price proposal (€)",
+    "Valider": "Validate",
+    "Merci pour votre demande concernant": "Thank you for your request about",
+    "Proposition de prix": "Price proposal",
     // ...add more keys here...
   }
 };
