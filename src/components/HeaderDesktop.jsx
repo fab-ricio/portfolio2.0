@@ -228,7 +228,7 @@ export default function HeaderDesktop({ language, setLanguage }) {
         {/* Switch minimaliste langue */}
         <button
           onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-          className="relative w-14 h-8 bg-gray-800 rounded-full flex items-center px-1 transition focus:outline-none focus:ring-2 focus:ring-blue-400 ml-4"
+          className="relative w-14 h-8 bg-gray-800 rounded-full flex items-center px-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 focus-visible:[filter:blur(3px)] ml-4"
           aria-label="Switch language"
         >
           <span className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-blue-500 shadow transform transition-transform ${language === 'fr' ? '' : 'translate-x-6'}`}></span>
