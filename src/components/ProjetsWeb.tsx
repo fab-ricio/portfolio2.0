@@ -1,31 +1,34 @@
 // @ts-nocheck
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 
-const webApps = [
-  {
-    title: 'Weather App',
-    description: "Application météo moderne avec API et design responsive.",
-    github: 'https://github.com/tonprofil/weather-app',
-    image: `${import.meta.env.BASE_URL}Weather-app.png`, // image dans public/
-  },
-  {
-    title: 'ToDo List',
-    description: "Gestionnaire de tâches intuitif, rapide et synchronisé.",
-    github: 'https://github.com/tonprofil/todo-list',
-    image: `${import.meta.env.BASE_URL}to-do.png`, // image dans public/
-  },
-  {
-    title: 'Gen sous-titres',
-    description: "Transcrit l'audio en sous-titres SRT mot à mot.",
-    github: 'https://github.com/tonprofil/generateur-sous-titres',
-    image: `${import.meta.env.BASE_URL}gen-sous-titres.png`, // image dans public/
-  },
-];
+function getWebApps(lang) {
+  return [
+    {
+      title: t(lang, 'project_weather_title'),
+      description: t(lang, 'project_weather_desc'),
+      github: 'https://github.com/tonprofil/weather-app',
+      image: `${import.meta.env.BASE_URL}Weather-app.png`,
+    },
+    {
+      title: t(lang, 'project_todo_title'),
+      description: t(lang, 'project_todo_desc'),
+      github: 'https://github.com/tonprofil/todo-list',
+      image: `${import.meta.env.BASE_URL}to-do.png`,
+    },
+    {
+      title: t(lang, 'project_subtitles_title'),
+      description: t(lang, 'project_subtitles_desc'),
+      github: 'https://github.com/tonprofil/generateur-sous-titres',
+      image: `${import.meta.env.BASE_URL}gen-sous-titres.png`,
+    },
+  ];
+}
 
-function CoverflowWebProjects({ projects }) {
+function CoverflowWebProjects({ projects, language }) {
   const [active, setActive] = useState(1);
-  const maxVisible = 1; // Limite à 1 de chaque côté pour alléger
+  const maxVisible = 1;
   const touchStartX = useRef(null);
   const isDragging = useRef(false);
   const coverflowRef = useRef(null);
@@ -40,7 +43,7 @@ function CoverflowWebProjects({ projects }) {
   function handleTouchEnd(e) {
     if (touchStartX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (!isDragging.current && Math.abs(dx) < 10) return; // tap only
+    if (!isDragging.current && Math.abs(dx) < 10) return;
     if (dx > 40) setActive((prev) => (prev - 1 + projects.length) % projects.length);
     if (dx < -40) setActive((prev) => (prev + 1) % projects.length);
     touchStartX.current = null;
@@ -59,7 +62,7 @@ function CoverflowWebProjects({ projects }) {
   function handleMouseUp(e) {
     if (touchStartX.current === null) return;
     const dx = e.clientX - touchStartX.current;
-    if (!isDragging.current && Math.abs(dx) < 10) return; // click only
+    if (!isDragging.current && Math.abs(dx) < 10) return;
     if (dx > 40) setActive((prev) => (prev - 1 + projects.length) % projects.length);
     if (dx < -40) setActive((prev) => (prev + 1) % projects.length);
     touchStartX.current = null;
@@ -67,7 +70,6 @@ function CoverflowWebProjects({ projects }) {
     window.removeEventListener('mousemove', handleMouseMove);
     window.removeEventListener('mouseup', handleMouseUp);
   }
-
 
   function handleKeyDown(e) {
     if (e.key === 'ArrowLeft') setActive((prev) => (prev - 1 + projects.length) % projects.length);
@@ -92,7 +94,6 @@ function CoverflowWebProjects({ projects }) {
         {projects.map((project, i) => {
           const offset = i - active;
           if (Math.abs(offset) > maxVisible) return null;
-          // OPTI: Réduit la translation et la rotation
           const translateX = offset * 90;
           const rotateY = offset * -22;
           const scale = offset === 0 ? 1.04 : 0.93;
@@ -185,26 +186,27 @@ function CoverflowWebProjects({ projects }) {
           className="px-4 py-1.5 rounded-full font-semibold shadow bg-blue-500 text-white hover:bg-blue-600 transition text-sm"
           onClick={() => setActive((prev) => (prev - 1 + projects.length) % projects.length)}
         >
-          ◀ Précédent
+          {t(language, 'previous')}
         </button>
         <button
           className="px-4 py-1.5 rounded-full font-semibold shadow bg-blue-500 text-white hover:bg-blue-600 transition text-sm"
           onClick={() => setActive((prev) => (prev + 1) % projects.length)}
         >
-          Suivant ▶
+          {t(language, 'next')}
         </button>
       </div>
     </div>
   );
 }
 
-const ProjetsWeb = () => {
+const ProjetsWeb = ({ language }) => {
+  const projects = getWebApps(language);
   return (
     <section id="web-app-coverflow" className="w-full max-w-5xl mx-auto mt-16 px-4 pt-6 pb-16">
-      <h3 className="text-lg sm:text-2xl md:text-3xl font-bold mb-8 text-center text-blue-200">Projets App Web (Apple Coverflow)</h3>
+      <h3 className="text-lg sm:text-2xl md:text-3xl font-bold mb-8 text-center text-blue-200">{t(language, 'projects_title')}</h3>
       <div className="h-8" />
       <div className="w-full h-[320px] md:h-[360px] bg-transparent rounded-xl flex items-center justify-center">
-        <CoverflowWebProjects projects={webApps} />
+        <CoverflowWebProjects projects={projects} language={language} />
       </div>
     </section>
   );

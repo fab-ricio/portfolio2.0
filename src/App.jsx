@@ -6,9 +6,11 @@ import StickyDarkModeHelper from './components/StickyDarkModeHelper';
 import HeaderDesktop from './components/HeaderDesktop';
 import HeaderMobile from './components/HeaderMobile';
 import FuturisticLoader from './components/FuturisticLoader.jsx';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState('fr');
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -26,11 +28,12 @@ function App() {
           (loading ? ' opacity-0 pointer-events-none select-none' : ' opacity-100')
         }
       >
-        <HeaderMobile />
+        <HeaderMobile language={language} setLanguage={setLanguage} />
         <div className="hidden md:block">
-          <HeaderDesktop />
+          <HeaderDesktop language={language} setLanguage={setLanguage} />
         </div>
-        <Main />        <Footer />
+        <Main language={language} />
+        <Footer />
         <DarkModeToggle />
         <StickyDarkModeHelper />
       </div>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { t } from '../i18n';
 
 const links = ['Accueil', 'À propos', 'Projets', 'Services', 'Contact'];
 
-export default function HeaderMobile() {
+export default function HeaderMobile({ language, setLanguage }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [blink, setBlink] = useState(false);
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
@@ -114,7 +115,7 @@ export default function HeaderMobile() {
             <line x1="14" y1="44" x2="4" y2="58" stroke="#0ff" strokeWidth="1.5" strokeDasharray="4 2" />
             <line x1="50" y1="44" x2="60" y2="58" stroke="#0ff" strokeWidth="1.5" strokeDasharray="4 2" />
           </svg>
-          <span className="text-base font-bold tracking-wide">MonPortfolio</span>
+          <span className="text-base font-bold tracking-wide">{t(language, 'portfolio_brand')}</span>
         </div>
         {/* Mobile Menu Button */}
         <button
@@ -168,7 +169,7 @@ export default function HeaderMobile() {
                     setMenuOpen(false);
                   }}
                 >
-                  {link}
+                  {t(language, link)}
                 </motion.a>
               );
             })}

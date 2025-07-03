@@ -1,10 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import services from './servicesList';
+import LanguageSwitcher from './LanguageSwitcher';
+import { t } from '../i18n';
 
-const links = ['Accueil', 'À propos', 'Projets', 'Services', 'Contact'];
+const links = [
+  'Accueil',
+  'À propos',
+  'Projets',
+  'Services',
+  'Contact',
+];
 
-export default function HeaderDesktop() {
+export default function HeaderDesktop({ language, setLanguage }) {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [blink, setBlink] = useState(false);
@@ -159,7 +167,7 @@ export default function HeaderDesktop() {
             transition={{ duration: 0.5 }}
             style={{ letterSpacing: '0.08em' }}
           >
-            MonPortfolio
+            {t(language, 'portfolio_brand')}
           </motion.h1>
         </motion.div>
         {/* Desktop Menu */}
@@ -177,16 +185,9 @@ export default function HeaderDesktop() {
                 >
                   <motion.a
                     href={`#${link.toLowerCase().replace(/ /g, '-')}`}
-                    className="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-1"
-                    whileHover={{ scale: 1.1 }}
+                    className="transition-colors duration-200 hover:text-cyan-400 px-2 py-1"
                   >
-                    {link}
-                    <motion.span
-                      className="ml-1 text-lg font-bold text-indigo-300 transition-transform duration-200"
-                      animate={{ rotate: servicesOpen ? 45 : 0 }}
-                    >
-                      +
-                    </motion.span>
+                    {t(language, link)}
                   </motion.a>
                   <AnimatePresence>
                     {servicesOpen && (
@@ -218,23 +219,14 @@ export default function HeaderDesktop() {
               <motion.a
                 key={i}
                 href={`#${sectionId}`}
-                whileHover={{ scale: 1.1 }}
-                className="hover:text-indigo-400 transition-colors duration-200"
-                onClick={e => {
-                  e.preventDefault();
-                  const section = document.getElementById(sectionId);
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    window.location.hash = `#${sectionId}`;
-                  }
-                }}
+                className="transition-colors duration-200 hover:text-cyan-400 px-2 py-1"
               >
-                {link}
+                {t(language, link)}
               </motion.a>
             );
           })}
         </nav>
+        <LanguageSwitcher language={language} setLanguage={setLanguage} />
       </div>
     </header>
   );

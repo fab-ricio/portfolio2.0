@@ -1,13 +1,14 @@
 import React from "react";
+import { t } from '../i18n';
 
-const ServicesDropdown = ({ services, onSelect, dropdownOpen, onToggle }) => {
+const ServicesDropdown = ({ services, onSelect, dropdownOpen, onToggle, language }) => {
 	return (
 		<div className="relative inline-block text-left">
 			<button
 				onClick={onToggle}
 				className="futuristic-pyramid-btn w-14 h-14 bg-gradient-to-br from-cyan-900 via-indigo-900 to-cyan-800 shadow-[0_4px_32px_0_rgba(0,255,255,0.18)] border-2 border-cyan-400/40 flex items-center justify-center relative overflow-hidden pyramid-shape
 				transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-cyan-400/40 focus:ring-2 focus:ring-cyan-400 animate-pulse"
-				title="Afficher les services"
+				title={t(language, 'Afficher les services') || 'Afficher les services'}
 			>
 				<span className="absolute inset-0 bg-cyan-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300 blur-xl animate-pulse pointer-events-none" />
 				<svg className="w-8 h-8 text-cyan-300 hover:text-cyan-400 transition-colors duration-200 drop-shadow-glow relative z-10"
@@ -30,10 +31,10 @@ const ServicesDropdown = ({ services, onSelect, dropdownOpen, onToggle }) => {
 									onClick={() => onSelect && onSelect(localService)}
 								>
 									<div className="font-semibold text-sm mb-1 text-white">
-										{service.title}
+										{t(language, service.title) || service.title}
 									</div>
 									<div className="text-xs text-gray-300 leading-tight">
-										{service.description}
+										{t(language, service.description) || service.description}
 									</div>
 								</li>
 							);

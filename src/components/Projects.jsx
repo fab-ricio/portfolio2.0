@@ -1,9 +1,10 @@
 import React from 'react';
+import { t } from '../i18n';
 
 const projects = [
   {
-    title: 'Générateur de factures PDF',
-    description: 'Crée automatiquement des factures en PDF à partir de données structurées.',
+    title: (lang) => t(lang, 'project_invoice_title'),
+    description: (lang) => t(lang, 'project_invoice_desc'),
     stack: ['Python', 'ReportLab'],
     github: 'https://github.com/tonprofil/facture-pdf',
     demo: null,
@@ -11,8 +12,8 @@ const projects = [
     image: 'facture.png',
   },
   {
-    title: 'Bitcoin Alert',
-    description: "Surveille le prix du Bitcoin et envoie une alerte email si la variation dépasse un seuil. Interface moderne avec graphique, historique et logs.",
+    title: (lang) => t(lang, 'project_bitcoin_title'),
+    description: (lang) => t(lang, 'project_bitcoin_desc'),
     stack: ['Python', 'customtkinter', 'CoinGecko API', 'smtplib'],
     github: 'https://github.com/tonprofil/bitcoin-alert',
     demo: null,
@@ -20,8 +21,8 @@ const projects = [
     image: 'bitcoin.png',
   },
   {
-    title: 'Scraper de données web',
-    description: 'Récupère des données d’un site en temps réel avec Node.js.',
+    title: (lang) => t(lang, 'project_scraper_title'),
+    description: (lang) => t(lang, 'project_scraper_desc'),
     stack: ['Node.js', 'Puppeteer', 'Cheerio'],
     github: 'https://github.com/tonprofil/scraper-node',
     demo: null,
@@ -39,13 +40,13 @@ const badgeColors = {
   'API': 'bg-cyan-100 text-cyan-700 border-cyan-300',
 };
 
-const Projects = () => (
+const Projects = ({ language }) => (
   <section
     id="projects"
     className="w-full min-h-screen py-16 px-4 flex flex-col items-center"
   >
     <h2 className="text-3xl md:text-4xl font-bold text-blue-100 mb-10 text-center tracking-wide uppercase drop-shadow-lg">
-      Mes Projets Techniques
+      {t(language, 'projects_tech_title')}
     </h2>
     <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {projects.map((project, idx) => (
@@ -59,7 +60,7 @@ const Projects = () => (
           {project.image && (
             <img
               src={project.image}
-              alt={project.title}
+              alt={project.title(language)}
               className="w-full h-48 object-cover rounded-t-3xl shadow-lg mb-4 border-b-4 border-indigo-500 bg-white/10 transition-transform duration-300 group-hover:scale-105"
               style={{ maxHeight: '220px', minHeight: '180px' }}
             />
@@ -74,8 +75,8 @@ const Projects = () => (
               </span>
             ))}
           </div>
-          <h3 className="text-lg md:text-2xl font-bold mb-2 text-blue-100 tracking-wide uppercase drop-shadow text-center futuristic-font">{project.title}</h3>
-          <p className="text-gray-200 mb-4 flex-1 text-center text-base md:text-lg opacity-90">{project.description}</p>
+          <h3 className="text-lg md:text-2xl font-bold mb-2 text-blue-100 tracking-wide uppercase drop-shadow text-center futuristic-font">{project.title(language)}</h3>
+          <p className="text-gray-200 mb-4 flex-1 text-center text-base md:text-lg opacity-90">{project.description(language)}</p>
           <div className="flex items-center gap-2 mb-5 flex-wrap justify-center">
             {project.stack.map((tech) => (
               <span
@@ -94,7 +95,7 @@ const Projects = () => (
               className="inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-700 to-indigo-600 text-white font-semibold shadow-lg hover:from-indigo-600 hover:to-blue-500 transition text-base"
               style={{ textShadow: '0 0 8px #60a5fa' }}
             >
-              Voir le code
+              {t(language, 'see_code')}
             </a>
             {project.demo && (
               <a
@@ -103,7 +104,7 @@ const Projects = () => (
                 rel="noopener noreferrer"
                 className="inline-block px-4 py-2 rounded-lg bg-gray-200 text-blue-800 font-semibold hover:bg-gray-300 transition"
               >
-                Démo CLI
+                {t(language, 'demo_cli')}
               </a>
             )}
           </div>

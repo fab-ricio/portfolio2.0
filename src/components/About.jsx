@@ -1,7 +1,8 @@
 // src/components/About.jsx
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 
-const About = () => {
+const About = ({ language }) => {
   return (
     <section id="about" className="w-full min-h-[60vh] sm:min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center px-2 sm:px-4 md:px-8 py-8 sm:py-12 md:py-20 bg-transparent text-white">
       <motion.div
@@ -40,9 +41,9 @@ const About = () => {
             style={{ aspectRatio: '1/1' }}
           />
         </div>
-        <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-4">Qui suis-je ?</h2>
+        <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-4">{t(language, 'about_title')}</h2>
         <p className="text-xs sm:text-base md:text-lg lg:text-xl leading-relaxed text-gray-200 px-2 sm:px-0">
-          Je suis un développeur freelance passionné par l’automatisation avec Python et les interfaces web modernes. J’aide les entreprises et particuliers à gagner du temps grâce à des outils sur mesure comme des bots, dashboards ou API personnalisées.
+          {t(language, 'about_text')}
         </p>
       </motion.div>
     </section>

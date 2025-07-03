@@ -9,7 +9,7 @@ import ProjetsWeb from './ProjetsWeb';
 import Services from './Services';
 import Contact from './Contact';
 
-export default function Main() {
+export default function Main({ language }) {
   // Configuration simplifiée - hook désactivé temporairement
   // const { isLowPerformance, reducedMotion } = usePerformance();
 
@@ -18,12 +18,12 @@ export default function Main() {
       <ShootingStarsV2 count={10} />
       
       <div className="relative z-10 w-full max-w-6xl mx-auto">
-        <Hero />
-        <About />
-        <Projects />
-        <ProjetsWeb />
-        <Services />
-        <Contact />
+        <Hero language={language} />
+        <About language={language} />
+        <Projects language={language} />
+        <ProjetsWeb language={language} />
+        <Services language={language} />
+        <Contact language={language} />
       </div>
     </main>
   );

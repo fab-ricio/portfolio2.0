@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 // import { usePerformance } from '../hooks/usePerformance';
 
-const Hero = () => {
+const Hero = ({ language }) => {
   // Hook désactivé temporairement
   // const { isLowPerformance, reducedMotion } = usePerformance();
   const reducedMotion = false; // Temporaire
@@ -19,7 +20,7 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reducedMotion ? 0.3 : 1 }}
       >
-        Bonjour, je suis Fabricio
+        {t(language, 'hero_title')}
       </motion.h1>
 
       {/* Sous-titre */}
@@ -29,7 +30,7 @@ const Hero = () => {
         animate={{ opacity: 0.8 }}
         transition={{ delay: reducedMotion ? 0.1 : 1, duration: reducedMotion ? 0.3 : 1 }}
       >
-        Développeur Freelance spécialisé en automatisation et solutions web modernes.
+        {t(language, 'hero_subtitle')}
       </motion.p>
 
       {/* Bouton d'action */}
@@ -40,8 +41,8 @@ const Hero = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: reducedMotion ? 0.2 : 1.8, duration: reducedMotion ? 0.3 : 0.5 }}
       >
-        Voir mes projets
-      </motion.a>      {/* Arrière-plan léger - À REMPLACER */}
+        {language === 'fr' ? 'Voir mes projets' : 'See my projects'}
+      </motion.a>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 
 const skills = [
   {
@@ -55,7 +56,15 @@ const plus = [
   'Compétences en communication, montage vidéo et création de contenu (TikTok/YouTube)'
 ];
 
-export default function Skills() {
+export default function Skills({ language }) {
+  // Traduction dynamique des titres de catégories et atouts
+  const translatedSkills = skills.map(cat => ({
+    ...cat,
+    title: t(language, cat.title) || cat.title,
+    items: cat.items.map(item => t(language, item) || item)
+  }));
+  const translatedPlus = plus.map(item => t(language, item) || item);
+
   return (
     <section id="skills" className="w-full py-12 px-2 sm:px-4 md:px-8 flex flex-col items-center justify-center bg-gradient-to-b from-[#23265d]/60 to-transparent">
       <motion.h2
@@ -65,10 +74,10 @@ export default function Skills() {
         transition={{ duration: 0.7 }}
         viewport={{ once: true }}
       >
-        Compétences Techniques
+        {t(language, 'skills_title')}
       </motion.h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-5xl mb-8">
-        {skills.map((cat, i) => (
+        {translatedSkills.map((cat, i) => (
           <motion.div
             key={cat.title}
             className="bg-[#181c2a]/80 rounded-xl shadow-lg p-5 flex flex-col items-center border border-cyan-900"
@@ -93,9 +102,9 @@ export default function Skills() {
         transition={{ duration: 0.7, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <h3 className="text-xl font-bold text-pink-300 mb-2 mt-4">🧠 Autres Atouts</h3>
+        <h3 className="text-xl font-bold text-pink-300 mb-2 mt-4">🧠 {t(language, 'Autres Atouts') || 'Autres Atouts'}</h3>
         <ul className="text-gray-200 text-base sm:text-lg flex flex-col gap-1 items-center">
-          {plus.map((item, i) => (
+          {translatedPlus.map((item, i) => (
             <li key={i}>• {item}</li>
           ))}
         </ul>
