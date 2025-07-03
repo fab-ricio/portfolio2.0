@@ -117,6 +117,14 @@ export default function HeaderMobile({ language, setLanguage }) {
           </svg>
           <span className="text-base font-bold tracking-wide">{t(language, 'portfolio_brand')}</span>
         </div>
+        {/* Switch langue mobile */}
+        <button
+          onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+          className="ml-2 px-2 py-1 rounded bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition"
+          aria-label="Switch language"
+        >
+          {language === 'fr' ? 'EN' : 'FR'}
+        </button>
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(open => !open)}
